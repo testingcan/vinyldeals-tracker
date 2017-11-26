@@ -1,0 +1,13 @@
+<html>
+	<head></head>
+	<body>
+		<h1>{{ title }}</h1>
+		<br>
+                {% for deal in deals %}
+                <p>
+		<a href="{{ deal.url }}">{{ deal.title }}</a>
+		{{ deal }}
+                </p>
+                {% endfor %}
+        </body>
+</html>
