@@ -1,8 +1,8 @@
 import os
 import sys
-from sqlalchemy import Column, Integer, String, create_engine
+from sqlalchemy import Column, Integer, String, create_engine, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship
 
 Base = declarative_base()
 
@@ -15,7 +15,12 @@ class Deal(Base):
     def __repr__(self):
         return '<Title %r>' % self.title
 
-engine = create_engine('sqlite:///deals_test.db')
+class Sent(Base):
+    __tablename__ = "sent"
+    id = Column(Integer, ForeignKey("deals.id"), primary_key=True)
+    deal = relationship(Deal)
+
+engine = create_engine('sqlite:///vinyldeals/db/deals.db')
 
 Base.metadata.create_all(engine)
 
