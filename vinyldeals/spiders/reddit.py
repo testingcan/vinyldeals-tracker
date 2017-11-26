@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from vinyldeals.items import VinyldealsItem
+from scrapy import signals
+from scrapy.xlib.pydispatch import dispatcher
+from vinyldeals.process import send_mail
 
 
 class RedditSpider(scrapy.Spider):
@@ -18,3 +21,9 @@ class RedditSpider(scrapy.Spider):
             item["title"] = title
             item["url"] = url
             yield item
+
+    def __init__(self):
+        dispatcher.connect(self.spider_closed, signals.spider_closed)
+
+    def spider_closed(self, spider):
+        send_mail()
