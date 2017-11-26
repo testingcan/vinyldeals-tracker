@@ -2,3 +2,4 @@
 *.un~
 *.swp
 vinyldeals/db/deals.db
+vinyldeals/config.py
